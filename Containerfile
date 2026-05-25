@@ -87,6 +87,8 @@ RUN --mount=type=cache,dst=/var/cache \
     /usr/bin/systemctl preset brew-update.timer && \
     /usr/bin/systemctl preset brew-upgrade.timer
 
+RUN systemctl disable kdump-tools
+
 
 RUN rm -rf /var/cache/
 

@@ -1,0 +1,3 @@
+/dev/null rw,
+unix (send, receive) type=stream peer=(label=bwrap),
+unix (send, receive) type=stream peer=(label=unpriv_bwrap),
