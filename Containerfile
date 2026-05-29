@@ -51,7 +51,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get install -y curl && \
     #
     apt-get update && apt-get install --fix-missing -y \
-    sudo vim flatpak distrobox \
+    login sudo vim flatpak distrobox \
     cups hplip \
     ubuntu-desktop-minimal python3-nautilus && \
     #
