@@ -2,7 +2,7 @@
 
 set -ouex pipefail
 
-apt -y install apparmor apparmor-profiles apparmor-utils lsb-release wget gnupg
+apt -y install apparmor apparmor-utils lsb-release wget gnupg
 apt -y install ufw gufw
 
 mkdir -p /usr/local/etc/
