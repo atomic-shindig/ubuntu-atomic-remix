@@ -1,11 +1,11 @@
-FROM localhost/ubuntu-atomic-remix
+FROM localhost/mkosi-bootc:latest
 
-RUN rm -rf /home /root /srv /var && \
+RUN rm -rf /home /root /srv /var /ostree && \
     mkdir -p \
     /sysroot /boot /usr/lib/ostree /var \
     /home /root /srv /opt /mnt \
     /snap && \
-    ln -s sysroot/ostree /ostree && \
+    ln -sfn sysroot/ostree /ostree && \
     printf '%s\n' \
     'd /var/home     0755 root root -' \
     'd /var/roothome 0700 root root -' \

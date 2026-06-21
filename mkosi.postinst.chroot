@@ -4,6 +4,8 @@ set -xeuo pipefail
 # install -Dpm0644 -t /usr/share/ "$SRCDIR/cache/homebrew.tar.zst"
 # install -Dpm0644 -t /usr/share/flatpak/remotes.d/ "$SRCDIR/cache/flathub.flatpakrepo"
 
+dracut --force "$(find /usr/lib/modules -maxdepth 1 -type d | tail -n 1)/initramfs.img"
+
 mkdir -p /sysroot
 mkdir -p /ostree
 

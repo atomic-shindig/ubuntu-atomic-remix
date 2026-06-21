@@ -1,4 +1,5 @@
 image := env("IMAGE_FULL", "localhost/mkosi-bootc:latest")
+bootable_img := env("IMAGE_FULL", "localhost/ubuntu-bootc-remix:latest")
 filesystem := env("BUILD_FILESYSTEM", "btrfs")
 
 default:
@@ -12,6 +13,7 @@ default:
     vmbuddy -f /tmp/bootable.img
 
 build:
+    sudo rm -rf mkosi.output/*
     mkosi -B --debug
 
 lint:
@@ -21,6 +23,7 @@ load:
     #!/usr/bin/env bash
     set -x
     podman load -i "$(find mkosi.output/* -maxdepth 0 -type d -printf "%T@ ,%p\n" -iname "_*" -print0 | sort -n | head -n1 | cut -d, -f2)" -q | cut -d: -f3 | xargs -I{} podman tag {} {{image}}
+    podman build --security-opt label=type:unconfined_t -f Containerfile -t localhost/ubuntu-bootc-remix:latest
 
 ostree-rechunk:
     #!/usr/bin/env bash
@@ -42,14 +45,14 @@ bootc *ARGS:
         -v /dev:/dev \
         -v "${BUILD_BASE_DIR:-.}:/data" \
         --security-opt label=type:unconfined_t \
-        "{{image}}" bootc {{ARGS}}
+        "{{bootable_img}}" bootc {{ARGS}}
 
 disk-image $filesystem=filesystem:
     #!/usr/bin/env bash
     if [ ! -e "${BUILD_BASE_DIR:-.}/bootable.img" ] ; then
         fallocate -l 20G "${BUILD_BASE_DIR:-.}/bootable.img"
     fi
-    just bootc install to-disk --generic-image --bootloader grub --via-loopback /data/bootable.img --filesystem "${filesystem}" --wipe
+    just bootc install to-disk --generic-image --bootloader systemd --via-loopback /data/bootable.img --filesystem "${filesystem}" --wipe --composefs-backend
 
 rechunk:
     #!/usr/bin/env bash
