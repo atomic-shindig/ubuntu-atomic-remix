@@ -1,3 +1,6 @@
 /dev/null rw,
 unix (send, receive) type=stream peer=(label=bwrap),
 unix (send, receive) type=stream peer=(label=unpriv_bwrap),
+capability dac_override,
+capability setuid,
+mount options=(rw, rprivate),
