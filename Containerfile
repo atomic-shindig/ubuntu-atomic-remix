@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install -y curl && \
     #
     apt-get update && apt-get install --fix-missing -y \
     login sudo vim flatpak distrobox \
-    cups hplip \
+    cups hplip gir1.2-gda-5.0 \
     ubuntu-desktop-minimal python3-nautilus && \
     #
     systemctl enable gdm && \
