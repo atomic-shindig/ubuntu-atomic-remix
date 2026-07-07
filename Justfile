@@ -11,13 +11,8 @@ default:
     env BUILD_BASE_DIR=/tmp just disk-image
     vmbuddy -f /tmp/bootable.img
 
-build: build-ostree
-
-build-ostree:
-    mkosi -B --debug --profile=base,base-desktop,bootc-ostree,brew
-
 build-sysupdate:
-    mkosi -B --debug --profile=sysupdate,brew
+    mkosi -B --debug --profile=sysupdate
 
 build-iso:
     mkosi -B --debug --profile=iso

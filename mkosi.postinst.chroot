@@ -1,8 +1,8 @@
 #!/bin/bash
 set -xeuo pipefail
 
-install -Dpm0644 -t /usr/share/ "$SRCDIR/cache/homebrew.tar.zst"
-install -Dpm0644 -t /usr/share/flatpak/remotes.d/ "$SRCDIR/cache/flathub.flatpakrepo"
+# install -Dpm0644 -t /usr/share/ "$SRCDIR/cache/homebrew.tar.zst"
+# install -Dpm0644 -t /usr/share/flatpak/remotes.d/ "$SRCDIR/cache/flathub.flatpakrepo"
 
 niri --version | grep -i -E "niri [[:digit:]]*\.[[:digit:]]* (.*\.git\..*)"
 
@@ -22,13 +22,13 @@ just --completions fish | sed -E 's/([\(_" ])just/\1zjust/g' > /usr/share/fish/v
 fc-cache --force --really-force --system-only --verbose # recreate font-cache to pick up the added fonts
 
 # These files NEED to be on the image.
-grep -F -e "ghcr.io/zirconium-dev" /usr/share/factory/etc/containers/policy.json
-grep -F -e "Comment=Central repository of Flatpak applications" /usr/share/flatpak/remotes.d/flathub.flatpakrepo
-stat /usr/share/flatpak/remotes.d/flathub.flatpakrepo
-stat /usr/share/pki/containers/zirconium.pub
-stat /usr/share/pki/containers/jackrabbit.pub
-stat /usr/bin/luks*tpm*
-stat /usr/share/zirconium/just/00-start.just
+# grep -F -e "ghcr.io/zirconium-dev" /usr/share/factory/etc/containers/policy.json
+# grep -F -e "Comment=Central repository of Flatpak applications" /usr/share/flatpak/remotes.d/flathub.flatpakrepo
+# stat /usr/share/flatpak/remotes.d/flathub.flatpakrepo
+# stat /usr/share/pki/containers/zirconium.pub
+# stat /usr/share/pki/containers/jackrabbit.pub
+# stat /usr/bin/luks*tpm*
+# stat /usr/share/zirconium/just/00-start.just
 # FIXME: wait until taidan gets this PR https://github.com/Ultramarine-Linux/taidan/pull/142/changes
 # stat /usr/bin/taidan
 # stat /usr/lib/systemd/system/taidan*.service
