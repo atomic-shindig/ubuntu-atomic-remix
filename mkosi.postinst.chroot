@@ -4,20 +4,20 @@ set -xeuo pipefail
 # install -Dpm0644 -t /usr/share/ "$SRCDIR/cache/homebrew.tar.zst"
 # install -Dpm0644 -t /usr/share/flatpak/remotes.d/ "$SRCDIR/cache/flathub.flatpakrepo"
 
-niri --version | grep -i -E "niri [[:digit:]]*\.[[:digit:]]* (.*\.git\..*)"
+# niri --version | grep -i -E "niri [[:digit:]]*\.[[:digit:]]* (.*\.git\..*)"
 
-# remove debug variable in dms-greeter which no longer exists in niri
-# FIXME: remove it when dms-greeter gets a new release
-sed --sandbox -i -e '/debug {/,+3d' /usr/bin/dms-greeter
+# # remove debug variable in dms-greeter which no longer exists in niri
+# # FIXME: remove it when dms-greeter gets a new release
+# sed --sandbox -i -e '/debug {/,+3d' /usr/bin/dms-greeter
 
-install -d /usr/share/zirconium/
-install -Dpm0644 -t /usr/lib/pam.d/ /usr/share/quickshell/dms/assets/pam/* # Fixes long login times on fingerprint auth
-sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
-echo 'source /usr/share/zirconium/shell/pure.bash' | tee -a "/etc/bashrc"
-install -d /usr/share/bash-completion/completions /usr/share/zsh/site-functions /usr/share/fish/vendor_completions.d/
-just --completions bash | sed -E 's/([\(_" ])just/\1zjust/g' > /usr/share/bash-completion/completions/zjust
-just --completions zsh | sed -E 's/([\(_" ])just/\1zjust/g' > /usr/share/zsh/site-functions/_zjust
-just --completions fish | sed -E 's/([\(_" ])just/\1zjust/g' > /usr/share/fish/vendor_completions.d/zjust.fish
+# install -d /usr/share/zirconium/
+# install -Dpm0644 -t /usr/lib/pam.d/ /usr/share/quickshell/dms/assets/pam/* # Fixes long login times on fingerprint auth
+# sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
+# echo 'source /usr/share/zirconium/shell/pure.bash' | tee -a "/etc/bashrc"
+# install -d /usr/share/bash-completion/completions /usr/share/zsh/site-functions /usr/share/fish/vendor_completions.d/
+# just --completions bash | sed -E 's/([\(_" ])just/\1zjust/g' > /usr/share/bash-completion/completions/zjust
+# just --completions zsh | sed -E 's/([\(_" ])just/\1zjust/g' > /usr/share/zsh/site-functions/_zjust
+# just --completions fish | sed -E 's/([\(_" ])just/\1zjust/g' > /usr/share/fish/vendor_completions.d/zjust.fish
 
 fc-cache --force --really-force --system-only --verbose # recreate font-cache to pick up the added fonts
 
