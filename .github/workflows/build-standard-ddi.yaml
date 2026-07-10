@@ -25,6 +25,6 @@ jobs:
     uses: ./.github/workflows/reusable-build-ddi.yaml
     secrets: inherit
     with:
-      image-name: ubuntu-atomic-remix
+      image-name: ubuntu
       platforms: amd64,arm64
       publish: ${{ github.event_name != 'pull_request' }}
