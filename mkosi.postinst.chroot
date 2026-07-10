@@ -9,6 +9,3 @@ fc-cache --force --really-force --system-only --verbose # recreate font-cache to
 tee "/usr/share/factory/etc/hostname" <<< "ubuntu-atomic"
 
 glib-compile-schemas /usr/share/glib-2.0/schemas/
-
-mkdir -p /etc/dconf/db/gdm.d
-dconf update
