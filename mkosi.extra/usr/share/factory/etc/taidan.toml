@@ -1,5 +1,5 @@
 skip_pages = [ "theme", "codecs", "tweaks", "nightlight", "browser", "categories", "inputmethod" ]
-org = "Zirconium"
+org = "ubuntu-atomic-remix"
 
 [taidan0]
 skip_dnf = true

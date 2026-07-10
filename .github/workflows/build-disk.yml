@@ -88,7 +88,7 @@ jobs:
             && cd /iso/product && find . | cpio -c -o | gzip -9cv > /images/product.img && cd / \
             && mkksiso \
                 --add /images \
-                --volid zirconium-boot \
+                --volid ubuntu-boot \
                 --replace "vmlinuz" "vmlinuz inst.resolution=1280x800" \
                 /output/zirc-unbranded.iso \
                 /output/zirc.iso'
