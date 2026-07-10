@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# By https://github.com/tulilirockz/pompona, under Apache 2.0
+
+set -xeuo pipefail
+
+POMPONA_REGISTRY="${POMPONA_REGISTRY:-ghcr.io/atomic-shindig/ubuntu}"
+POMPONA_IMAGE_TAG="${POMPONA_IMAGE_TAG:-latest}"
+POMPONA_SYSUPDATE_DEFINITIONS_DIR="${POMPONA_SYSUPDATE_DEFINITIONS_DIR:-/usr/lib/sysupdate.d}"
+POMPONA_OUT_DIRECTORY="${POMPONA_OUT_DIRECTORY:-pull}"
+POMPONA_ORAS_CACHE="${POMPONAS_ORAS_CACHE:-cache}"
+
+run0 /usr/lib/systemd/systemd-sysupdate --transfer-source="$(realpath "${POMPONA_OUT_DIRECTORY}")" --definitions="${POMPONA_SYSUPDATE_DEFINITIONS_DIR}" "${@}"

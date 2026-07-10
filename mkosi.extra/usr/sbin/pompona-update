@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# By https://github.com/tulilirockz/pompona, under Apache 2.0
+
+set -xeo pipefail
+
+POMPONA_REGISTRY="${POMPONA_REGISTRY:-ghcr.io/atomic-shindig/ubuntu}"
+POMPONA_IMAGE_TAG="${POMPONA_IMAGE_TAG:-latest}"
+POMPONA_SYSUPDATE_DEFINITIONS_DIR="${POMPONA_SYSUPDATE_DEFINITIONS_DIR:-/usr/lib/sysupdate.d}"
+POMPONA_OUT_DIRECTORY="${POMPONA_OUT_DIRECTORY:-pull}"
+POMPONA_ORAS_CACHE="${POMPNAS_ORAS_CACHE:-cache}"
+
+mkdir -p "${POMPONA_OUT_DIRECTORY}" "${POMPONA_ORAS_CACHE}"
+
+# Naive and probably not super smart approach, just get the partition types and add them as separate OCI artifacts. We could possibly just bundle it all in one single one, though.
+COMPONENTS="$(cat "${POMPONA_SYSUPDATE_DEFINITIONS_DIR}"/*.transfer | grep -oP "MatchPartitionType=.*" | cut -f2 -d= | xargs)"
+
+GITHUB_PLATFORM="$(uname -m | sed 's/x86_/amd/; s/aarch/arm/')"
+
+for COMPONENT in ${COMPONENTS} ; do
+  # We need to handle unified arch images as well
+  oras pull --platform "linux/${GITHUB_PLATFORM}" --no-tty "${POMPONA_REGISTRY}/${COMPONENT}:${POMPONA_IMAGE_TAG}" -o "${POMPONA_OUT_DIRECTORY}/"
+done
+
+find "${POMPONA_OUT_DIRECTORY}" -iname "*.raw" -exec 'mv' '{}' "${POMPONA_OUT_DIRECTORY}" ';'
+
+pompona-sysupdate "${@}"
