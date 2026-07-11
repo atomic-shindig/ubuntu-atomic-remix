@@ -8,3 +8,4 @@ enable flatpak-add-flathub-repos.service
 enable flatpak-preinstall.service
 enable ntpd-rs.service
 enable systemd-resolved.service
+mask gnome-initial-setup
