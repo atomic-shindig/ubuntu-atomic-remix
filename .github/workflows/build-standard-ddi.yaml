@@ -1,4 +1,4 @@
-name: Build Zirconium (base) DDI
+name: Build Ubuntu (base) DDI
 
 permissions:
   contents: read
